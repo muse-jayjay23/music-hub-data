@@ -21,6 +21,8 @@ def get_interest_data():
     print("Example: 10,20,30,40,50,60\n")
 
     data_str = input("Enter your data here: \n")
-    print(f"Data provided: {data_str} ")
+
+    interest_data = data_str.split(",")
+    print(interest_data)
 
 get_interest_data()
