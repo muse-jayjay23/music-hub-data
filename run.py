@@ -69,7 +69,7 @@ def calculate_surplus_data(interest_row):
     Compare interest with stock and calculate the surplus for each instrument.
     The surplus = interest figure subtracted from the stock:
     - Positive surplus indicates spare instruments
-    - Negative surplus indicates extra made when stock was needed to be borrowed from other music services.
+    - Negative surplus indicates extra made when stock was needed to be loaned from other music services.
     """
     print("Calculating surplus data...\n")
     stock = SHEET.worksheet("stock").get_all_values()
@@ -82,6 +82,15 @@ def calculate_surplus_data(interest_row):
 
     return surplus_data
 
+def update_surplus_worksheet(data):
+    """
+    Update the google sheet with the new surplus data calculated after user imput
+    """
+    print("Updating surplus worksheet...\n")
+    surplus_worksheet = SHEET.worksheet('surplus')
+    surplus_worksheet.append_row(data)
+    print("Surplus worksheet updated successfully!\n")
+
 
 def main():
     """
@@ -91,8 +100,7 @@ def main():
     interest_data = [int(num) for num in data]
     update_interest_worksheet(interest_data)
     new_surplus_data = calculate_surplus_data(interest_data)
-    print(new_surplus_data)
-
+    update_surplus_worksheet(new_surplus_data)
 
 print("Thank you for using Music Hub Data Automation!\n")
 main()
