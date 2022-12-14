@@ -54,14 +54,15 @@ def validate_data(values):
     return True
 
 
-def update_interest_worksheet(data):
+def update_worksheet(data, worksheet):
     """
-    Update the google sheet with the data inputted by the user
+    Combine the two seperate update worksheet functions into the same one using f strings and a 
+    new variable worksheet to update the specific worksheet needed.
     """
-    print("Updating interest worksheet...\n")
-    interest_worksheet = SHEET.worksheet('interest')
-    interest_worksheet.append_row(data)
-    print("Interest worksheet updated successfully!\n")
+    print(f"Updating {worksheet} worksheet...\n")
+    worksheet_update = SHEET.worksheet(worksheet)
+    worksheet_update.append_row(data)
+    print(f"{worksheet} worksheet updated successfully!\n")
 
 
 def calculate_surplus_data(interest_row):
@@ -82,15 +83,6 @@ def calculate_surplus_data(interest_row):
 
     return surplus_data
 
-def update_surplus_worksheet(data):
-    """
-    Update the google sheet with the new surplus data calculated after user imput
-    """
-    print("Updating surplus worksheet...\n")
-    surplus_worksheet = SHEET.worksheet('surplus')
-    surplus_worksheet.append_row(data)
-    print("Surplus worksheet updated successfully!\n")
-
 
 def main():
     """
@@ -98,9 +90,10 @@ def main():
     """
     data = get_interest_data()
     interest_data = [int(num) for num in data]
-    update_interest_worksheet(interest_data)
+    update_worksheet(interest_data, 'interest')
     new_surplus_data = calculate_surplus_data(interest_data)
-    update_surplus_worksheet(new_surplus_data)
+    update_worksheet(new_surplus_data, 'surplus')
+
 
 print("Thank you for using Music Hub Data Automation!\n")
 main()
