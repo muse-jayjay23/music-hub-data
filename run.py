@@ -64,6 +64,12 @@ def update_interest_worksheet(data):
     print("Interest worksheet updated successfully!\n")
 
 
-data = get_interest_data()
-interest_data = [int(num) for num in data]
-update_interest_worksheet(interest_data)
+def main():
+    """
+    Runs all main functions
+    """
+    data = get_interest_data()
+    interest_data = [int(num) for num in data]
+    update_interest_worksheet(interest_data)
+
+main()
