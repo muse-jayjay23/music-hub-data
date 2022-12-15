@@ -97,9 +97,26 @@ def get_last_5_entries_interest():
     for ind in range(1, 7):
         column = interest.col_values(ind)
         columns.append(column[-5:])
-        print(columns)
 
     return columns
+
+
+def calculate_stock_data(data):
+    """
+    Calculate the average stock for each item type, adding 10%
+    to make sure the music hub has enough instruments if interest is
+    higher
+    """
+    print("Calculating predicted stock data...\n")
+    new_stock_data = []
+
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column) / len(int_column)
+        stock_num = average * 1.1
+        new_stock_data.append(round(stock_num))
+
+    return new_stock_data
 
 
 def main():
@@ -111,7 +128,12 @@ def main():
     update_worksheet(interest_data, 'interest')
     new_surplus_data = calculate_surplus_data(interest_data)
     update_worksheet(new_surplus_data, 'surplus')
+    interest_columns = get_last_5_entries_interest()
+    stock_data = calculate_stock_data(interest_columns)
+    update_worksheet(stock_data, 'stock')
 
 
 print("Thank you for using Music Hub Data Automation!\n")
+
+
 main()
