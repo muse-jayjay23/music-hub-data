@@ -1,11 +1,13 @@
 import gspread
 from google.oauth2.service_account import Credentials
 
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
     ]
+
 
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
@@ -22,7 +24,7 @@ def get_interest_data():
     while True:
         print("Please enter interest data from this term.")
         print("Data should be six numbers, separated by commas.")
-        print("Example: 10,20,30,40,50,60\n")
+        print("Example: 1,2,3,4,5,6\n")
 
         data_str = input("Enter your data here: \n")
 
@@ -82,6 +84,22 @@ def calculate_surplus_data(interest_row):
         surplus_data.append(surplus)
 
     return surplus_data
+
+
+def get_last_5_entries_interest():
+    """
+    Collects columns of data from interest worksheet so we can use this for the estimate
+    calculation of stock needed
+    """
+    interest = SHEET.worksheet("interest")
+
+    columns = []
+    for ind in range(1, 7):
+        column = interest.col_values(ind)
+        columns.append(column[-5:])
+        print(columns)
+
+    return columns
 
 
 def main():
