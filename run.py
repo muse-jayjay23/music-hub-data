@@ -26,7 +26,7 @@ def get_interest_data():
         print("Data should be six numbers, separated by commas.")
         print("Example: 1,2,3,4,5,6\n")
 
-        data_str = input("Enter your data here: \n")
+        data_str = input("Enter your data here:\n")
 
         sales_data = data_str.split(",")
 
@@ -103,9 +103,9 @@ def get_last_5_entries_interest():
 
 def calculate_stock_data(data):
     """
-    Calculate the average stock for each item type, adding 10%
+    Calculate the average stock for each instrument type, adding 10%
     to make sure the music hub has enough instruments if interest is
-    higher
+    higher than predicted
     """
     print("Calculating predicted stock data...\n")
     new_stock_data = []
@@ -132,8 +132,6 @@ def main():
     stock_data = calculate_stock_data(interest_columns)
     update_worksheet(stock_data, 'stock')
 
-
 print("Thank you for using Music Hub Data Automation!\n")
-
 
 main()
